@@ -1,0 +1,13 @@
+<head>
+<style>
+body { font-family: 'Helvetica', 'Arial', sans-serif; }
+</style>
+</head>
+
+
+<h1>board</h1>
+{% for cell in board %}
+  <li>{{cell}}</li>
+{% else %}
+  <li>No cells found.</li>
+{% endfor %}
