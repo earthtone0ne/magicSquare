@@ -1,11 +1,16 @@
 module.exports = function () {
   const size = 3;
   const targetSum = 15;
-  this.board = new Array(size).fill(new Array(size).fill(''));
-  this.board[2][2] = "EYYYYOHHH"
+  this.board = [['','',''],['','',''],['','','']];
+  this.usedVals = [];
 
-  this.submitMove = function(x,y){
-    let result = this.checkMove(x,y);
+  this.submitMove = function(x,y,val){
+    if (this.board[x][y] || this.usedVals.indexOf(val) >= 0) {
+      return alert('Invalid - select an empty square & unique value.');
+    }
+    this.board[x][y] = val;
+    this.usedVals.push(val);
+    let result = this.checkMove();
     alert(result);
   };
 
@@ -25,26 +30,57 @@ module.exports = function () {
 
   this.checkCols = function() {
     for (let i = 0; i < size; i ++){
-      if (this.board[i].indexOf('') !== -1){
-        return false;
-      }
-      let sum = 0;
-      for (let j = 0; j < size; j++){
-        sum+=this.board[j][i];
-      }
-      if (sum !== targetSum){
-        return false;
+      if (this.board[i].indexOf('') >= 0) {
+        let sum = +this.board[i].reduce(this.add);
+        if (sum !== targetSum) {
+          return false;
+        }
       }
     }
     return true;
   };
 
-  this.checkRows = function(){
+  this.checkRows = function() {
+    let sums = [];
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+        if (this.board[i][j]) {
+          sums[j] = sums[j] || [];
+          sums[j].push(this.board[i][j]);
+        }
+      }
+    }
+    sums.forEach(function (arr) {
+      let rowSum = arr.reduce(this.add);
+      if (arr.length === size && rowSum !== targetSum) {
+        return false;
+      }
+    });
     return true;
   };
 
   this.checkDiags = function() {
+    let diagUp = [], diagDown = [];
+    let lastIndex = size-1;
+    for (let i = 0; i < size; i++) {
+      if (this.board[i][i]) {
+        diagDown.push(this.board[i][i]);
+      }
+      if (this.board[i][lastIndex-i]){
+        diagUp.push(this.board[i][lastIndex-i]);
+      }
+    }
+    if (diagUp.length === size) {
+      diagUp.sum = diagUp.reduce(this.add);
+      if (diagUp.sum !== targetSum) { return false; }
+    }
+    if (diagDown.length === size) {
+      diagDown.sum = diagDown.reduce(this.add);
+      if (diagDown.sum !== targetSum) { return false; }
+    }
     return true;
   };
+  this.add = function (a,b) { return +a + +b; };
 
+  return this;
 };

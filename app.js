@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get('/', function(req, res){
-    res.render('index', { 'cells': game.board[2]} );
+    res.render('index', { 'rows': game.board} );
 });
 
 
