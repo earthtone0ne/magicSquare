@@ -2,20 +2,18 @@ let express = require('express'),
     app = express(),
     engines = require('consolidate'),
     bodyParser = require('body-parser'),
-    game = require('./js/game.js')();
-
+    game = require('./browser/js/game.js')();
 
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use('/static', express.static('browser'));
 
 app.get('/', function(req, res){
     res.render('index', { 'rows': game.board} );
 });
-
 
 app.use(function(req, res){
     res.sendStatus(404);

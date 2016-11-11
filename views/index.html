@@ -1,23 +1,13 @@
 <head>
-<style>
-body { font-family: 'Helvetica', 'Arial', sans-serif; }
-.cell {
-  width: 100px;
-  height: 100px;
-  border: 2px solid gray;
-  box-sizing: border-box;
-  margin-top: -2px;
-}
-</style>
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 
 
-<h1>board</h1>
+<h1>the board</h1>
 {% for row in rows %}
-  <div class="row">
-    ###
+  <div class="row" data-x"{{loop.index0}}">
     {% for cell in row %}
-      <div class="cell">#{{cell}}</div>
+      <div class="cell" data-y="{{loop.index0}}">{{cell}}</div>
     {% endfor %}
   </div>
 
