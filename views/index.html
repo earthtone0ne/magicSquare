@@ -1,14 +1,20 @@
 <head>
   <link rel="stylesheet" href="/static/css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  <script src="/static/js/gameplay.js"> </script>
 </head>
 
+<header>
+  <h1>the board</h1>
+</header>
+<div class="gameboard">
 
-<h1>the board</h1>
 {% for row in rows %}
-  <div class="row" data-x"{{loop.index0}}">
+  <div class="row" data-y="{{loop.index0}}">
     {% for cell in row %}
-      <div class="cell" data-y="{{loop.index0}}">{{cell}}</div>
+      <div class="cell" data-x="{{loop.index0}}">{{cell}}</div>
     {% endfor %}
   </div>
 
 {% endfor %}
+</div>

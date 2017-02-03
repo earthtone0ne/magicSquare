@@ -30,7 +30,8 @@ module.exports = function () {
 
   this.checkCols = function() {
     for (let i = 0; i < size; i ++){
-      if (this.board[i].indexOf('') >= 0) {
+      //the below tested >= 0?? Changing to eq -1
+      if (this.board[i].indexOf('') === -1) {
         let sum = +this.board[i].reduce(this.add);
         if (sum !== targetSum) {
           return false;
