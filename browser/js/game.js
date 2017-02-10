@@ -1,4 +1,4 @@
-module.exports = function () {
+var game = function () {
   const size = 3;
   const targetSum = 15;
   this.board = [['','',''],['','',''],['','','']];
@@ -84,4 +84,4 @@ module.exports = function () {
   this.add = function (a,b) { return +a + +b; };
 
   return this;
-};
+}();
