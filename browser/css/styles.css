@@ -4,7 +4,11 @@ body {
 }
 
 .gameboard {
-    margin: 10vh 10vh ;
+  width: 294px;
+  margin-top: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 1px 1px 3px #999999;
 
 }
 .row {
@@ -20,12 +24,36 @@ body {
   margin-left: -2px;
   text-align: center;
   line-height: 100px;
+  font-size: 1.7em;
+  color: darksalmon;
 }
-
+.cell.dragOver {
+  background-color: lemonchiffon;
+}
 header {
   background-color: #c0ffee;
   margin: 0 0 10px 0;
   padding:  10px 10px 5px 15px;
   box-shadow: 0px 2px 3px #99aaa3
+}
 
+.numbers{
+  display: flex;
+  height: 10vh;
+  min-height: 5em;
+  justify-content: center;
+}
+
+.numTile{
+  width: 2.1em;
+  height: 1.9em;
+  font-size: 1.7em;
+  color: darksalmon;
+  margin: 2px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px gray;
+  text-align: center;
+  padding-top: 0.6em;
+  padding-bottom: 0;
 }

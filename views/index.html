@@ -6,17 +6,23 @@
 </head>
 
 <header>
-  <h1>the board</h1>
-  <p>a work in progress</p>
+  <h1>magic square</h1>
 </header>
-<div class="gameboard">
-
+<main>
+<div class="numbers">
+    {% for num in nums %}
+      <div class="numTile" id="num{{loop.index0 +1}}" draggable="true">
+        {{loop.index0 +1 }}
+      </div>
+    {% endfor %}
+</div>
+<div class="gameboard" ondragover="event.preventDefault()">
 {% for row in rows %}
-  <div class="row" data-y="{{loop.index0}}">
+  <div class="row" data-y="{{loop.index0}}" ondragover="event.preventDefault()">
     {% for cell in row %}
-      <div class="cell" data-x="{{loop.index0}}">{{cell}}</div>
+      <div class="cell" data-x="{{loop.index0}}" >{{cell}}</div>
     {% endfor %}
   </div>
-
 {% endfor %}
 </div>
+</main>

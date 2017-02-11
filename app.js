@@ -2,7 +2,7 @@ let express = require('express'),
     app = express(),
     engines = require('consolidate'),
     bodyParser = require('body-parser'),
-    game = require('./browser/js/game.js')();
+    game = require('./browser/js/game.js');
 
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('browser'));
 
 app.get('/', function(req, res){
-    res.render('index', { 'rows': game.board} );
+    res.render('index', { 'rows': Array(3).fill(Array(3).fill('')), 'nums': Array(9).fill(0) } );
 });
 
 app.use(function(req, res){
