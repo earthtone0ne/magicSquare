@@ -1,12 +1,16 @@
 
 $(document).ready(function(){
   var currNum;
-  $('.numbers').delegate('div.numTile','dragstart tap',function(){
-    currNum = Number($(this)[0].innerText);
-    $(this).css('opacity', '0.5')
+  $('.numbers').delegate('div.numTile','dragstart touchend',function(){
+    let thisNum = Number($(this)[0].innerText);
+    if (game.usedVals.indexOf(thisNum) === -1){
+      currNum = thisNum;
+      $(this).css('opacity', '0.5')
+    }
   })
   $('.numbers').delegate('div.numTile','dragend',deselectNum)
-  $('header').on('touch', deselectNum)
+
+  $('header').on('touchend', deselectNum)
 
   $('.gameboard').delegate('.cell','dragenter',function(){
     $(this).addClass('dragOver');
@@ -18,6 +22,11 @@ $(document).ready(function(){
   $('.gameboard').delegate('.cell','drop', function(){
     cellSelect($(this))
   })
+  $('.gameboard').delegate('.cell','touchend', function(){
+    if (currNum) {
+      cellSelect($(this))
+    }
+  })
   function cellSelect(cell){
     var rowNum = parseInt(cell.parent().index());
     var colNum = parseInt(cell.index());
@@ -26,7 +35,7 @@ $(document).ready(function(){
   }
   function deselectNum(){
     if (game.usedVals.indexOf(currNum) === -1){
-      $(this).css('opacity', '1')
+      $("#num"+currNum).css('opacity', '1')
     }
     currNum = null;
   }
