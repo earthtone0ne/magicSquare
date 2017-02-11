@@ -1,15 +1,12 @@
 
 $(document).ready(function(){
   var currNum;
-  $('.numbers').delegate('div.numTile','dragstart',function(){
+  $('.numbers').delegate('div.numTile','dragstart tap',function(){
     currNum = Number($(this)[0].innerText);
     $(this).css('opacity', '0.5')
   })
-  $('.numbers').delegate('div.numTile','dragend',function(){
-    if (game.usedVals.indexOf(currNum) === -1){
-      $(this).css('opacity', '1')
-    }
-  })
+  $('.numbers').delegate('div.numTile','dragend',deselectNum)
+  $('header').on('touch', deselectNum)
 
   $('.gameboard').delegate('.cell','dragenter',function(){
     $(this).addClass('dragOver');
@@ -19,12 +16,20 @@ $(document).ready(function(){
   })
 
   $('.gameboard').delegate('.cell','drop', function(){
-    var rowNum = parseInt($(this).parent().index());
-    var colNum = parseInt($(this).index());
-    $(this).removeClass('dragOver');
-    handleMove(+colNum, +rowNum, currNum, $(this));
+    cellSelect($(this))
   })
-
+  function cellSelect(cell){
+    var rowNum = parseInt(cell.parent().index());
+    var colNum = parseInt(cell.index());
+    cell.removeClass('dragOver');
+    handleMove(+colNum, +rowNum, currNum, cell);
+  }
+  function deselectNum(){
+    if (game.usedVals.indexOf(currNum) === -1){
+      $(this).css('opacity', '1')
+    }
+    currNum = null;
+  }
   function handleMove (col, row, num, elem) {
     if (game.board[col][row] || game.usedVals.indexOf(currNum) >= 0) {
       alert('Invalid - select an empty square & unique value.');
