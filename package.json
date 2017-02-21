@@ -1,7 +1,7 @@
 {
-    "name": "all_together_now",
+    "name": "magic_square",
     "version": "0.1.0",
-    "description": "Using the MongoDB driver together with route handling and templates",
+    "description": "Basic Magic Square game",
     "main": "app.js",
     "dependencies": {
         "consolidate": "~0.13.1",
@@ -12,6 +12,9 @@
     "scripts": {
       "start": "node app"
     },
-    "author": "Shannon Bradshaw",
-    "license": "0BSD"
+    "author": "Stephanie Marsh",
+    "license": "0BSD",
+    "engines": {
+      "node": "6.1.0"
+    }
 }
