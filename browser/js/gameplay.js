@@ -5,28 +5,28 @@ $(document).ready(function(){
     let thisNum = Number($(this)[0].innerText);
     if (game.usedVals.indexOf(thisNum) === -1){
       currNum = thisNum;
-      $(this).css('opacity', '0.5')
+      $(this).css('opacity', '0.5');
     }
-  })
-  $('.numbers').delegate('div.numTile','dragend',deselectNum)
+  });
+  $('.numbers').delegate('div.numTile','dragend',deselectNum);
 
-  $('header').on('touchend', deselectNum)
+  $('header').on('touchend', deselectNum);
 
   $('.gameboard').delegate('.cell','dragenter',function(){
     $(this).addClass('dragOver');
-  })
+  });
   $('.gameboard').delegate('.cell','dragleave',function(){
-    $(this).removeClass('dragOver')
-  })
+    $(this).removeClass('dragOver');
+  });
 
   $('.gameboard').delegate('.cell','drop', function(){
-    cellSelect($(this))
-  })
+    cellSelect($(this));
+  });
   $('.gameboard').delegate('.cell','touchend', function(){
     if (currNum) {
-      cellSelect($(this))
+      cellSelect($(this));
     }
-  })
+  });
   function cellSelect(cell){
     var rowNum = parseInt(cell.parent().index());
     var colNum = parseInt(cell.index());
@@ -35,11 +35,11 @@ $(document).ready(function(){
   }
   function deselectNum(){
     if (game.usedVals.indexOf(currNum) === -1){
-      $("#num"+currNum).css('opacity', '1')
+      $('#num'+currNum).css('opacity', '1');
     }
     currNum = null;
   }
-  function handleMove (col, row, num, elem) {
+  function handleMove(col, row, num, elem) {
     if (game.board[col][row] || game.usedVals.indexOf(currNum) >= 0) {
       alert('Invalid - select an empty square & unique value.');
       return false;
@@ -54,7 +54,7 @@ $(document).ready(function(){
       return true;
     }
     else {
-      alert('Wrong move. This game is over, bub. \nClick to restart.')
+      alert('Wrong move. This game is over. \nClick to restart.');
       endGame();
     }
   }
@@ -64,4 +64,4 @@ $(document).ready(function(){
     $('.numTile').css('opacity', 1);
   }
 
-})
+});

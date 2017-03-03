@@ -1,13 +1,11 @@
 var express = require('express'),
     app = express(),
     engines = require('consolidate')
-    // bodyParser = require('body-parser');
 
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/static', express.static('browser'));
 app.set('port', (process.env.PORT || 5100));
 

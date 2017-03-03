@@ -1,23 +1,18 @@
-var game = function () {
+var game = function() {
+  const targetSum = 15;
   const size = 3;
   this.gridSize = size * size;
-  const targetSum = 15;
 
-  this.submitMove = function(x,y,val){
-    // if (this.board[x][y] || this.usedVals.indexOf(val) >= 0) {
-    //   alert('Invalid - select an empty square & unique value.');
-    //   return false;
-    // }
+  this.submitMove = (x,y,val) => {
     this.board[x][y] = val;
     this.usedVals.push(val);
     let result = this.checkMove();
     console.log((result) ? 'Valid move ' + val : 'Game over.');
-    this.isGamePlayble = false;
     return result;
   };
 
 // could check only affected rows but not much benefit at this scale
-  this.checkMove = function() {
+  this.checkMove = () => {
     if (this.checkCols() === false) {
       return false;
     }
@@ -30,28 +25,20 @@ var game = function () {
     else return true;
   };
 
-  this.checkSums = function (arrs) {
+  this.checkSums = (arrs) => {
     return arrs.every(function (arr) {
-      let thisSum = arr.reduce(this.add, 0);
-      if (thisSum > targetSum || (arr.length === size && thisSum !== targetSum)) {
+      let filteredArr = arr.filter(this.notEmpty)
+      let thisSum = filteredArr.reduce(this.add, 0);
+      if (thisSum > targetSum || (filteredArr.length === size && thisSum !== targetSum)) {
         return false;
       }
       else {return true;}
     });
-  }
-
-  this.checkCols = function() {
-    for (let i = 0; i < size; i ++){
-      let sum = +this.board[i].reduce(this.add);
-      if (sum > targetSum) { return false; }
-      if (this.board[i].indexOf('') === -1 && sum !== targetSum) {
-        return false;
-      }
-    }
-    return true;
   };
 
-  this.checkRows = function() {
+  this.checkCols = () =>  this.checkSums(this.board);
+
+  this.checkRows = () => {
     let rows = [];
     for (let i = 0; i < size; i++) {
       for (let j = 0; j < size; j++) {
@@ -61,10 +48,10 @@ var game = function () {
         }
       }
     }
-    return this.checkSums(rows)
+    return this.checkSums(rows);
   };
 
-  this.checkDiags = function() {
+  this.checkDiags = () => {
     let diagUp = [], diagDown = [];
     let lastIndex = size-1;
     for (let i = 0; i < size; i++) {
@@ -75,17 +62,17 @@ var game = function () {
         diagUp.push(this.board[i][lastIndex-i]);
       }
     }
-    return checkSums([diagUp, diagDown]);
+    return this.checkSums([diagUp, diagDown]);
   };
 
-  (this.setBoard = function () {
+  this.add = (a,b) => { return +a  + +b; };
+  this.notEmpty = (e) => e !== '' ;
+
+  (this.setBoard = () => {
     this.board = [['','',''],['','',''],['','','']];
     this.usedVals = [];
-    this.isGamePlayble = true;
     return true;
   })();
-
-  this.add = function (a,b) { return +a + +b; };
 
   return this;
 }();
